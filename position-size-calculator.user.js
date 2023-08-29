@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trading Position Size Calculator
 // @namespace    http://tampermonkey.net/
-// @version      1.15
+// @version      1.16
 // @description  Add a position size calculator bar to an exchange
 // @author       0xpeti
 // @match        https://www.bybit.com/*
@@ -14,8 +14,10 @@
 
 /* 
 
+**********************************************************************
 README:
 https://github.com/0xpeti/position-size-calculator/blob/main/README.md
+**********************************************************************
 
 */
 

@@ -7,8 +7,8 @@
 // @match        https://www.bybit.com/*
 // @match        https://www.binance.com/*
 // @match        https://app.drift.trade/*
-// @updateURL    https://github.com/0xpeti/position-size-calculator/blob/main/position-size-calculator.user.js
-// @downloadURL  https://github.com/0xpeti/position-size-calculator/blob/main/position-size-calculator.user.js
+// @updateURL    https://github.com/0xpeti/position-size-calculator/raw/main/position-size-calculator.user.js
+// @downloadURL  https://github.com/0xpeti/position-size-calculator/raw/main/position-size-calculator.user.js
 // @grant        none
 // ==/UserScript==
 

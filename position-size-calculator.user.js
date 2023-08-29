@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trading Position Size Calculator
 // @namespace    http://tampermonkey.net/
-// @version      1.13
+// @version      1.14
 // @description  Add a position size calculator bar to an exchange
 // @author       0xpeti
 // @match        https://www.bybit.com/*
@@ -70,7 +70,7 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
     // New function to get the market price
     function getMarketPrice() {
         let marketPriceElem = document.querySelector('.short.bold.ob__market-price');
-        return marketPriceElem ? parseFloat(marketPriceElem.textContent) : null;
+        return marketPriceElem ? parseFloat(marketPriceElem.textContent.replace(/,/g, '')) : null;
     }
 
 

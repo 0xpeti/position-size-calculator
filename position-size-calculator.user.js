@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trading Position Size Calculator
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.22
 // @description  Add a position size calculator bar to an exchange
 // @author       0xpeti
 // @match        https://www.bybit.com/*
@@ -93,7 +93,7 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
         // Updated Risk calculation
         let risk = balance * (percent / 100);
         riskElem.innerText = risk.toFixed(2);
-        riskElem.style.color = "#ffb400";  // make it yellow
+        riskElem.style.color = "#ffb400";  // yellow
 
          // Updated Reward and R:R calculations
          let tp = parseFloat(tpElem.value);
@@ -107,21 +107,21 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
              }
  
              if (shouldShowBruhReward) {
-                 rewardElem.innerText = "BRUH";  // You can change this text
-                 rewardElem.style.color = "#ff00ff";  // Vivid magenta
+                 rewardElem.innerText = "BRUH";
+                 rewardElem.style.color = "#ADFF2F";  // Fluorescent orange
              } else {
                  let reward = Math.abs(pSize * (tp - entry));
                  rewardElem.innerText = reward.toFixed(2);
-                 rewardElem.style.color = "#ffb400";  // make it yellow
+                 rewardElem.style.color = "#ffb400";  // Darker yellow
              }
  
              if (shouldShowBruhRR) {
                  rrElem.innerText = "RUG!";  // You can change this text
-                 rrElem.style.color = "#ff00ff";  // Vivid magenta
+                 rrElem.style.color = "#FFFF00";  // Vivid yellow
              } else {
                  let rr = (tp - entry) / (entry - stop);
                  rrElem.innerText = rr.toFixed(2);
-                 rrElem.style.color = "#00deff";  // make it blue
+                 rrElem.style.color = "#00deff";  // Light blue
              }
          }
  
@@ -141,8 +141,8 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
             }
 
             if (shouldShowBruh) {
-                psizeMarketElem.innerText = "It's so over";
-                psizeMarketElem.style.color = "#ff00ff"; // You can choose any color
+                psizeMarketElem.innerText = "It's so over!";
+                psizeMarketElem.style.color = "#ff00ff"; 
             } else {
                 let pSizeMarket = (balance * (percent / 100)) / Math.abs(stop - marketPrice);
                 psizeMarketElem.innerText = pSizeMarket.toFixed(4);

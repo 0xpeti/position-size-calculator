@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trading Position Size Calculator
 // @namespace    http://tampermonkey.net/
-// @version      1.17
+// @version      1.18
 // @description  Add a position size calculator bar to an exchange
 // @author       0xpeti
 // @match        https://www.bybit.com/*
@@ -95,21 +95,39 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
         riskElem.innerText = risk.toFixed(2);
         riskElem.style.color = "#ffb400";  // make it yellow
 
-        // Updated Reward and R:R calculations
-        let tp = parseFloat(tpElem.value);
-        if (!isNaN(tp)) {
-            let reward = Math.abs(pSize * (tp - entry));
-            let rr = (tp - entry) / (entry - stop);
-
-            rewardElem.innerText = reward.toFixed(2);
-            rrElem.innerText = rr.toFixed(2);
-
-            rewardElem.style.color = "#ffb400";  // make it yellow
-            rrElem.style.color = "#00deff";  // make it blue
-        }
-
-        // Position Size
-        psizeElem.innerText = pSize.toFixed(4);  // Updated to 4 decimals
+         // Updated Reward and R:R calculations
+         let tp = parseFloat(tpElem.value);
+         if (!isNaN(tp)) {
+             let shouldShowBruhReward = false;
+             let shouldShowBruhRR = false;
+ 
+             if ((stop < entry && tp <= entry) || (stop > entry && tp >= entry)) {
+                 shouldShowBruhReward = true;
+                 shouldShowBruhRR = true;
+             }
+ 
+             if (shouldShowBruhReward) {
+                 rewardElem.innerText = "BRUH";  // You can change this text
+                 rewardElem.style.color = "#ff00ff";  // Vivid magenta
+             } else {
+                 let reward = Math.abs(pSize * (tp - entry));
+                 rewardElem.innerText = reward.toFixed(2);
+                 rewardElem.style.color = "#ffb400";  // make it yellow
+             }
+ 
+             if (shouldShowBruhRR) {
+                 rrElem.innerText = "BRUH";  // You can change this text
+                 rrElem.style.color = "#ff00ff";  // Vivid magenta
+             } else {
+                 let rr = (tp - entry) / (entry - stop);
+                 rrElem.innerText = rr.toFixed(2);
+                 rrElem.style.color = "#00deff";  // make it blue
+             }
+         }
+ 
+         // Position Size
+         psizeElem.innerText = pSize.toFixed(4);  // 4 decimals
+ 
         //psizeElem.style.fontSize = "16px";  // make the font bigger
         psizeElem.style.backgroundColor = "#292929";  // background color
 

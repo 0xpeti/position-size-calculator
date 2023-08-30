@@ -1,5 +1,7 @@
 # Trading Position Size Calculator
-It's a simple tool for trading. It calculates the optimal position size based on your risk, entry, and stop levels. Do your own research; no financial advice, blablabla.
+It's a simple tool for trading. Among other things, it calculates the optimal position size based on your risk, entry, and stop levels.
+
+*Do your own research; no financial advice, blablabla.*
 
 ## What it Does
 - Adds a handy position size calculator bar to the websites of Bybit and Binance trading platforms.

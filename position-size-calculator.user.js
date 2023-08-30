@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trading Position Size Calculator
 // @namespace    http://tampermonkey.net/
-// @version      1.18
+// @version      1.2
 // @description  Add a position size calculator bar to an exchange
 // @author       0xpeti
 // @match        https://www.bybit.com/*
@@ -116,7 +116,7 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
              }
  
              if (shouldShowBruhRR) {
-                 rrElem.innerText = "BRUH";  // You can change this text
+                 rrElem.innerText = "RUG!";  // You can change this text
                  rrElem.style.color = "#ff00ff";  // Vivid magenta
              } else {
                  let rr = (tp - entry) / (entry - stop);
@@ -141,7 +141,7 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
             }
 
             if (shouldShowBruh) {
-                psizeMarketElem.innerText = "BRUH";
+                psizeMarketElem.innerText = "It's so over";
                 psizeMarketElem.style.color = "#ff00ff"; // You can choose any color
             } else {
                 let pSizeMarket = (balance * (percent / 100)) / Math.abs(stop - marketPrice);

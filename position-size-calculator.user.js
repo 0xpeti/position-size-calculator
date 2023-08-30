@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trading Position Size Calculator
 // @namespace    http://tampermonkey.net/
-// @version      1.16
+// @version      1.17
 // @description  Add a position size calculator bar to an exchange
 // @author       0xpeti
 // @match        https://www.bybit.com/*
@@ -47,13 +47,7 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
 
     // Insert it into the body, at the top
     document.body.insertBefore(bar, document.body.firstChild);
-
-    // Coinbase specific: to push down the page 
-    if (window.location.href.includes("coinbase.com")) {
-        document.body.style.marginTop = "80px";  // adjust this value as needed
-    } else {
-        document.body.style.marginTop = "50px";
-    }
+    document.body.style.marginTop = "50px";
 
     // Add event listeners for real-time calculation
     
@@ -119,14 +113,25 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
         //psizeElem.style.fontSize = "16px";  // make the font bigger
         psizeElem.style.backgroundColor = "#292929";  // background color
 
-        // New code for pSizeMarket
+        // Calculate pSizeMarket
         let marketPrice = getMarketPrice(); // Get the market price
         if (marketPrice !== null) { // Ensure market price is available
-            let pSizeMarket = (balance * (percent / 100)) / Math.abs(stop - marketPrice);
-            psizeMarketElem.innerText = pSizeMarket.toFixed(4);
-            // Copy the color from psizeElem to psizeMarketElem
-            psizeMarketElem.style.color = psizeElem.style.color;
+            let shouldShowBruh = false;
+
+            if ((stop < entry && marketPrice <= stop) || (stop > entry && marketPrice >= stop)) {
+                shouldShowBruh = true;
+            }
+
+            if (shouldShowBruh) {
+                psizeMarketElem.innerText = "BRUH";
+                psizeMarketElem.style.color = "#ff00ff"; // You can choose any color
+            } else {
+                let pSizeMarket = (balance * (percent / 100)) / Math.abs(stop - marketPrice);
+                psizeMarketElem.innerText = pSizeMarket.toFixed(4);
+                psizeMarketElem.style.color = psizeElem.style.color;
+            }
         }
+
     }
 
 

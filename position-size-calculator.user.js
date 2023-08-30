@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trading Position Size Calculator
 // @namespace    http://tampermonkey.net/
-// @version      1.22
+// @version      1.23
 // @description  Add a position size calculator bar to an exchange
 // @author       0xpeti
 // @match        https://www.bybit.com/*
@@ -52,7 +52,7 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
     // Add event listeners for real-time calculation
     
     let balanceElem = document.getElementById("balance");
-    let pollingInterval = 500;  // Update every n millisecond
+    let pollingInterval = 100;  // Update every n millisecond
     let percentElem = document.getElementById("percent");
     let entryElem = document.getElementById("entry");
     let stopElem = document.getElementById("stop");
@@ -96,34 +96,40 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
         riskElem.style.color = "#ffb400";  // yellow
 
          // Updated Reward and R:R calculations
-         let tp = parseFloat(tpElem.value);
-         if (!isNaN(tp)) {
-             let shouldShowBruhReward = false;
-             let shouldShowBruhRR = false;
- 
-             if ((stop < entry && tp <= entry) || (stop > entry && tp >= entry)) {
-                 shouldShowBruhReward = true;
-                 shouldShowBruhRR = true;
-             }
- 
-             if (shouldShowBruhReward) {
-                 rewardElem.innerText = "BRUH";
-                 rewardElem.style.color = "#ADFF2F";  // Fluorescent orange
-             } else {
-                 let reward = Math.abs(pSize * (tp - entry));
-                 rewardElem.innerText = reward.toFixed(2);
-                 rewardElem.style.color = "#ffb400";  // Darker yellow
-             }
- 
-             if (shouldShowBruhRR) {
-                 rrElem.innerText = "RUG!";  // You can change this text
-                 rrElem.style.color = "#FFFF00";  // Vivid yellow
-             } else {
-                 let rr = (tp - entry) / (entry - stop);
-                 rrElem.innerText = rr.toFixed(2);
-                 rrElem.style.color = "#00deff";  // Light blue
-             }
-         }
+         // Updated Reward and R:R calculations
+        let tp = parseFloat(tpElem.value);
+        if (!isNaN(tp)) {
+            let shouldShowBruhReward = false;
+            let shouldShowBruhRR = false;
+
+            if ((stop < entry && tp <= entry) || (stop > entry && tp >= entry)) {
+                shouldShowBruhReward = true;
+                shouldShowBruhRR = true;
+            }
+
+            if (shouldShowBruhReward) {
+                rewardElem.innerText = "BRUH";
+                rewardElem.style.color = "#FF00FF";
+                tpElem.style.border = "2px solid magenta";  // Added this line
+            } else {
+                let reward = Math.abs(pSize * (tp - entry));
+                rewardElem.innerText = reward.toFixed(2);
+                rewardElem.style.color = "#ffb400";
+                tpElem.style.border = "1px solid #616161";  // Added this line
+            }
+
+            if (shouldShowBruhRR) {
+                rrElem.innerText = "RUG!";
+                rrElem.style.color = "#FFFF00";
+                tpElem.style.border = "2px solid magenta";  // Added this line
+            } else {
+                let rr = (tp - entry) / (entry - stop);
+                rrElem.innerText = rr.toFixed(2);
+                rrElem.style.color = "#00deff";
+                tpElem.style.border = "1px solid #616161";  // Added this line
+            }
+        }
+
  
          // Position Size
          psizeElem.innerText = pSize.toFixed(4);  // 4 decimals
@@ -142,7 +148,7 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
 
             if (shouldShowBruh) {
                 psizeMarketElem.innerText = "It's so over!";
-                psizeMarketElem.style.color = "#ff00ff"; 
+                psizeMarketElem.style.color = "#FF8200"; 
             } else {
                 let pSizeMarket = (balance * (percent / 100)) / Math.abs(stop - marketPrice);
                 psizeMarketElem.innerText = pSizeMarket.toFixed(4);
@@ -219,6 +225,24 @@ https://github.com/0xpeti/position-size-calculator/blob/main/README.md
         calculatePSize();
         saveCalculation();
     });
+    
+    tpElem.addEventListener("focus", function () {
+        if (rewardElem.innerText === "BRUH" || rrElem.innerText === "RUG!") {
+            tpElem.style.border = "2px solid magenta";
+            tpElem.style.outline = "none";  // Added this to remove default focus style
+        } else {
+            tpElem.style.outline = "none";  // Remove default focus style but keep existing border
+        }
+    });
+    
+    tpElem.addEventListener("blur", function () {
+        if (rewardElem.innerText === "BRUH" || rrElem.innerText === "RUG!") {
+            tpElem.style.border = "2px solid magenta";
+        } else {
+            tpElem.style.border = "1px solid #616161";
+        }
+    });
+    
 
     // ... (Your previous code stays the same up to here)
 
